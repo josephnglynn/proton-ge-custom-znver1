@@ -75,7 +75,6 @@ jobs:
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
-          repo_token: ${{ secrets.PROTON_GE_GITHUB_ACTIONS_BUILD }}
           file: build/${{ env.RELEASE_VERSION }}.tar.gz
           file_glob: true
           tag: "${{ env.RELEASE_VERSION }}-build-${{ github.run_number }}"
