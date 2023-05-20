@@ -3,6 +3,10 @@ on:
 
 jobs:
   build-proton-ge:
+    strategy:
+      matrix:
+        cpu_arch: ["znver1"]
+        optimization_value: ["-O3", "-O2"]
     runs-on: ubuntu-latest
     steps:
     
@@ -18,6 +22,12 @@ jobs:
         
       - name: Display version
         run: echo ${{ env.RELEASE_VERSION }}
+        
+      - name: Patch Makefile.in with custom flags
+        run: sed -i 's/.*OPTIMIZE_FLAGS :=.*/OPTIMIZE_FLAGS := ${{ matrix.optimization_value }} -march=${{ matrix.cpu_arch }} -mtune=${{ matrix.cpu_arch }} -mfpmath=sse/' Makefile.in
+
+      - name: Veritfy Optimize Flags
+        run: cat Makefile.ini | grep OPTIMIZE_FLAGS
 
       - name: Install dependencies apt
         run: sudo apt update && sudo apt-get install -y ccache fontforge-nox
