@@ -7,7 +7,7 @@ jobs:
     strategy:
       matrix:
         cpu_arch: ["znver1"]
-        optimization_value: ["-O3", "-O2"]
+        optimization_value: ["O3", "O2"]
     runs-on: ubuntu-latest
     steps:
     
@@ -19,13 +19,13 @@ jobs:
         run: git clone -b ${{ steps.branch-name.outputs.current_branch }} --jobs 20 --recurse-submodules https://github.com/GloriousEggroll/proton-ge-custom.git .
 
       - name: Get Proton Versions
-        run: echo "RELEASE_VERSION=$(cat VERSION)" >> $GITHUB_ENV
+        run: echo "RELEASE_VERSION=$(cat VERSION)-${{ matrix.cpu_arch }}-${{ matrix.optimization_value }}" >> $GITHUB_ENV
         
       - name: Display version
         run: echo ${{ env.RELEASE_VERSION }}
         
       - name: Patch Makefile.in with custom flags
-        run: sed -i 's/.*OPTIMIZE_FLAGS :=.*/OPTIMIZE_FLAGS := ${{ matrix.optimization_value }} -march=${{ matrix.cpu_arch }} -mtune=${{ matrix.cpu_arch }} -mfpmath=sse/' Makefile.in
+        run: sed -i 's/.*OPTIMIZE_FLAGS :=.*/OPTIMIZE_FLAGS := -${{ matrix.optimization_value }} -march=${{ matrix.cpu_arch }} -mtune=${{ matrix.cpu_arch }} -mfpmath=sse/' Makefile.in
 
       - name: Veritfy Optimize Flags
         run: cat Makefile.in | grep OPTIMIZE_FLAGS
