@@ -77,5 +77,4 @@ jobs:
         with:
           file: build/${{ env.RELEASE_VERSION }}.tar.gz
           file_glob: true
-          tag: "${{ env.RELEASE_VERSION }}-build-${{ github.run_number }}"
           overwrite: false
