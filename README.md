@@ -1,5 +1,5 @@
-# proton-ge-custom-znver1
-[Proton-ge-custom](https://github.com/GloriousEggroll/proton-ge-custom) builds optimized for znver1
+# proton-ge-custom-znver2
+[Proton-ge-custom](https://github.com/GloriousEggroll/proton-ge-custom) builds optimized for znver2
 
 After spending several hours trying to get podman to work in an ebuild, I decided it would be easier to just build on github actions.
 
