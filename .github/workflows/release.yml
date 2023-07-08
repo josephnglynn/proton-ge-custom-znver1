@@ -6,7 +6,7 @@ jobs:
   build-proton-ge:
     strategy:
       matrix:
-        cpu_arch: ["znver1"]
+        cpu_arch: ["znver2"]
         optimization_value: ["O3", "O2"]
     runs-on: ubuntu-latest
     steps:
