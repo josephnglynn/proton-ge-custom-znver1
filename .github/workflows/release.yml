@@ -5,6 +5,7 @@ on:
 jobs:
   build-proton-ge:
     strategy:
+      fail-fast: false
       matrix:
         cpu_arch: ["znver2"]
         optimization_value: ["O3", "O2"]
