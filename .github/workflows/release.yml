@@ -7,7 +7,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        cpu_arch: ["znver2"]
+        cpu_specifics: ["-march=nocona -mtune=core-avx2 -mfpmath=sse", "-march=znver2 -mtune=znver2"]
         optimization_value: ["O3", "O2"]
     runs-on: ubuntu-latest
     steps:
@@ -26,7 +26,7 @@ jobs:
         run: echo ${{ env.RELEASE_VERSION }}
         
       - name: Patch Makefile.in with custom flags
-        run: sed -i 's/.*OPTIMIZE_FLAGS :=.*/OPTIMIZE_FLAGS := -${{ matrix.optimization_value }} -march=${{ matrix.cpu_arch }} -mtune=${{ matrix.cpu_arch }} -mfpmath=sse/' Makefile.in
+        run: sed -i 's/.*OPTIMIZE_FLAGS :=.*/OPTIMIZE_FLAGS := -${{ matrix.optimization_value }} ${{ matrix.cpu_specifics }} /' Makefile.in
 
       - name: Veritfy Optimize Flags
         run: cat Makefile.in | grep OPTIMIZE_FLAGS
