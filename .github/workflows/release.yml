@@ -7,7 +7,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        cpu_specifics: ["-march=nocona -mtune=core-avx2 -mfpmath=sse", "-march=znver2 -mtune=znver2"]
+        cpu_specifics: ["-march=nocona -mtune=core-avx2 -mfpmath=sse", "-march=znver2 -mtune=znver2 -mfpmath=sse"]
         optimization_value: ["O3", "O2"]
     runs-on: ubuntu-latest
     steps:
